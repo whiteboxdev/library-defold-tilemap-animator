@@ -3,13 +3,13 @@
 --         key   = start_tile (from tilesource)
 --         value = table
 --                 [1] = end_tile (from_tilesource)
---                 [2] = playback ("loop_forward", "loop_pingpong")
+--                 [2] = playback ("loop_forward", "loop_backward", ""loop_pingpong", "loop_corolla")
 --                 [3] = step (frame duration in seconds)
 return {
-	[1] = { end_tile = 4, playback = "loop_forward", step = 1 / 2 },
-	[5] = { end_tile = 6, playback = "loop_forward", step = 1 / 2 },
-	[7] = { end_tile = 13, playback = "loop_forward", step = 1 / 4 },
+	[1] = { end_tile = 4, playback = "loop_corolla", step = 1 / 3 },
+	[5] = { end_tile = 6, playback = "loop_forward", step = 1 / 1},
+	[7] = { end_tile = 13, playback = "loop_forward", step = 1 / 5 },
 	[14] = { end_tile = 18, playback = "loop_forward", step = 1 / 4 },
-	[20] = { end_tile = 22, playback = "loop_pingpong", step = 1 / 6 },
-	[23] = { end_tile = 31, playback = "loop_pingpong", step = 1 / 6 }
+	[20] = { end_tile = 22, playback = "loop_pingpong", step = 1 / 2 },
+	[23] = { end_tile = 31, playback = "loop_backward", step = 1 / 6 }
 }

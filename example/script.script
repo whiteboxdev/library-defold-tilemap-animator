@@ -1,4 +1,4 @@
--- Import Defold Tilemap Automator (DTA) module.
+-- Import Defold Tilemap Automation (DTA) module.
 local dta = require "dta.dta"
 
 -- Initialize script.
