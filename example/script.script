@@ -1,7 +1,6 @@
 -- Import Defold Tilemap Automation (DTA) module.
 local dta = require "dta.dta"
 
--- Initialize script.
 function init(self)
 	-- Import animation groups from user-created Lua module.
 	local animation_groups = require "example.animation_groups"

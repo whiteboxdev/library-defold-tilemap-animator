@@ -11,18 +11,25 @@ dta.tilemap_width = 0
 dta.tilemap_height = 0
 dta.registrations = {}
 
+dta.loop_playbacks = {
+	loop_forward = true,
+	loop_pingpong = true,
+	loop_corolla = true,
+	loop_backward = true
+}
+
 ----------------------------------------------------------------------
 -- PLAYBACK FUNCTIONS
 ----------------------------------------------------------------------
 
-function dta.pb_func_loop_forward(key, value)
+function dta.pb_func_loop_forward(handle, key, value)
 	value["frame"] = value["frame"] + 1
 	if key + value["frame"] == value["end_tile"] + 1 then
 		value["frame"] = 0
 	end
 end
 
-function dta.pb_func_loop_pingpong(key, value)
+function dta.pb_func_loop_pingpong(handle, key, value)
 	if value["extra"] == 0 then
 		value["frame"] = value["frame"] + 1
 		if key + value["frame"] == value["end_tile"] then
@@ -36,7 +43,7 @@ function dta.pb_func_loop_pingpong(key, value)
 	end
 end
 
-function dta.pb_func_loop_corolla(key, value)
+function dta.pb_func_loop_corolla(handle, key, value)
 	if value["extra"] <= 0 then
 		value["extra"] = -value["extra"] + 1
 		if key + value["extra"] == value["end_tile"] + 1 then
@@ -49,7 +56,7 @@ function dta.pb_func_loop_corolla(key, value)
 	end
 end
 
-function dta.pb_func_loop_backward(key, value)
+function dta.pb_func_loop_backward(handle, key, value)
 	value["frame"] = value["frame"] - 1
 	if key + value["frame"] == key - 1 then
 		value["frame"] = value["end_tile"] - key
@@ -79,8 +86,9 @@ function dta.timer_callback(self, handle, time_elapsed)
 			value["elapsed"] = value["elapsed"] + time_elapsed
 			if value["elapsed"] >= value["step"] then
 				local prev_tile = key + value["frame"]
-				dta.playback_functions[value["playback"]](key, value)
+				dta.playback_functions[value["playback"]](handle, key, value)
 				dta.sweep_tile(handle, key + value["frame"])
+				value["elapsed"] = 0
 			end
 		end
 	end
