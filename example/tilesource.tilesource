@@ -1,6 +1,6 @@
 image: "/assets/tileset.png"
-tile_width: 8
-tile_height: 8
+tile_width: 16
+tile_height: 16
 tile_margin: 0
 tile_spacing: 0
 collision: ""
