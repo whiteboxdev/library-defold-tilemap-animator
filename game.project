@@ -15,7 +15,7 @@ vsync = 0
 input_method = HiddenInputField
 
 [project]
-title = Defold Tilemap Animator
+title = Defold Tilemap Animator - Example
 
 [graphics]
 default_texture_min_filter = nearest
