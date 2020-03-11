@@ -8,6 +8,9 @@ dta.animation_groups      = {}
 dta.animation_groups_loop = {}
 dta.animation_groups_once = {}
 
+-- remember to:
+-- dta.animate() --> accepts tiles that are on frame "start", but are actually running an animation!
+
 dta.tilemap_relative_path = nil
 dta.tilemap_layer_ids     = {}
 dta.tilemap_start_x       = 0
@@ -64,20 +67,49 @@ function dta.loop_corolla(data)
 	end
 end
 
-function dta.once_forward(data)
-
+function dta.once_forward(data, instance_data)
+	instance_data["frame"] = instance_data["frame"] + 1
+	if instance_data["frame"] > data["end_tile"] then
+		instance_data["frame"] = data["start_tile"]
+		instance_data["extra"] = 9999
+	end
 end
 
-function dta.once_backward(data)
-
+function dta.once_backward(data, instance_data)
+	instance_data["frame"] = instance_data["frame"] - 1
+	if instance_data["frame"] <= data["start_tile"] then
+		instance_data["frame"] = data["start_tile"]
+		instance_data["extra"] = 9999
+	end
 end
 
-function dta.once_pingpong(data)
-
+function dta.once_pingpong(data, instance_data)
+	if instance_data["extra"] == 0 then
+		instance_data["frame"] = instance_data["frame"] + 1
+		if instance_data["frame"] > data["end_tile"] then
+			instance_data["frame"] = data["end_tile"] - 1
+			instance_data["extra"] = 1
+		end
+	else
+		instance_data["frame"] = instance_data["frame"] - 1
+		if instance_data["frame"] <= data["start_tile"] then
+			instance_data["frame"] = data["start_tile"]
+			instance_data["extra"] = 9999
+		end
+	end
 end
 
-function dta.once_corolla(data)
-
+function dta.once_corolla(data, instance_data)
+	if instance_data["extra"] > 0 then
+		instance_data["extra"] = -instance_data["extra"]
+		instance_data["frame"] = data["start_tile"]
+		if data["start_tile"] - instance_data["extra"] >= data["end_tile"] then
+			instance_data["extra"] = 9999
+		end
+	else
+		instance_data["extra"] = -instance_data["extra"] + 1
+		instance_data["frame"] = data["start_tile"] + instance_data["extra"]
+	end
 end
 
 dta.playbacks_loop = {
@@ -102,16 +134,35 @@ function dta.ternary(condition, ret_true, ret_false)
 	return condition and ret_true or ret_false
 end
 
-function dta.set_tile_once()
-	
+function dta.set_tile_once(start_tile, frame, tile_pos)
+	local data = dta.tilemap_tiles[start_tile][tile_pos]
+	tilemap.set_tile(dta.tilemap_relative_path, data["layer_id"], data["x"], data["y"], frame)
 end
 
-function dta.timer_callback_once()
-	
+function dta.timer_callback_once(self, handle, time_elapsed)
+	for start_tile, data in pairs(dta.animation_groups_once) do
+		local instance_data = data["instances"][handle]
+		if instance_data ~= nil then
+			instance_data["elapsed"] = instance_data["elapsed"] + time_elapsed
+			if instance_data["elapsed"] >= data["step"] then
+				instance_data["elapsed"] = 0
+				dta.playbacks_once[data["playback"]](data, instance_data)
+				dta.set_tile_once(start_tile, instance_data["frame"], instance_data["tile_pos"])
+				if instance_data["extra"] == 9999 then
+					timer.cancel(handle)
+					data["instances"][handle] = nil
+				end
+			end
+		end
+	end
 end
 
 function dta.configure_animation_groups_once()
-	
+	for start_tile, data in pairs(dta.animation_groups) do
+		if dta.playbacks_once[data["playback"]] ~= nil then
+			dta.animation_groups_once[start_tile] = { start_tile = start_tile, end_tile = data["end_tile"], playback = data["playback"], step = data["step"], instances = {} }
+		end
+	end
 end
 
 function dta.set_tile_loop(start_tile, frame)
@@ -137,7 +188,7 @@ function dta.configure_animation_groups_loop()
 	for start_tile, data in pairs(dta.animation_groups) do
 		if dta.playbacks_loop[data["playback"]] ~= nil then
 			local handle = timer.delay(data["step"], true, dta.timer_callback_loop)
-			local frame = dta.ternary(data["playback"] == "loop_backward", dta["end_tile"], start_tile)
+			local frame = dta.ternary(data["playback"] == "loop_backward", data["end_tile"], start_tile)
 			dta.animation_groups_loop[start_tile] = { start_tile = start_tile, end_tile = data["end_tile"], playback = data["playback"], step = data["step"], handle = handle, frame = frame, elapsed = 0, extra = 0 }
 		end
 	end
@@ -182,6 +233,19 @@ function dta.init(animation_groups, tilemap_relative_path, tilemap_layer_ids)
 	dta.tilemap_width = w
 	dta.tilemap_height = h
 	dta.configure_tilemap_tiles()
+end
+
+function dta.animate(tile_x, tile_y)
+	for i = 1, #dta.tilemap_layer_ids do
+		local tile = tilemap.get_tile(dta.tilemap_relative_path, dta.tilemap_layer_ids[i], tile_x, tile_y)
+		if dta.animation_groups_once[tile] ~= nil then
+			local handle = timer.delay(dta.animation_groups_once[tile]["step"], true, dta.timer_callback_once)
+			local frame = dta.ternary(dta.animation_groups_once[tile]["playback"] == "once_backward", dta.animation_groups_once[tile]["end_tile"], tile)
+			local tile_pos = tile_x + (tile_y - 1) * dta.tilemap_width
+			local data = { handle = handle, frame = frame, elapsed = 0, extra = 0, tile_pos = tile_pos }
+			dta.animation_groups_once[tile]["instances"][handle] = data
+		end
+	end
 end
 
 return dta

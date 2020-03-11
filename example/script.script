@@ -1,11 +1,22 @@
 -- Import Defold Tilemap Automation (DTA) module.
 local dta = require "dta.dta"
 
+local tile_size = 16
+
 function init(self)
+	msg.post(".", "acquire_input_focus")
 	-- Import animation groups from user-created Lua module.
 	local animation_groups = require "example.animation_groups"
 	-- List tilemap layer ids.
 	local tilemap_layer_ids = { "terrain" }
 	-- Initialize and run DTA.
 	dta.init(animation_groups, "#tilemap", tilemap_layer_ids)
+end
+
+function on_input(self, action_id, action)
+	if action_id == hash("click") and action.pressed then
+		local tile_x = math.ceil(action.x / tile_size)
+		local tile_y = math.ceil(action.y / tile_size)
+		dta.animate(tile_x, tile_y)
+	end
 end
