@@ -1,3 +1,25 @@
+-- MIT License
+
+-- Copyright (c) 2020 Klayton Kowalski
+
+-- Permission is hereby granted, free of charge, to any person obtaining a copy
+-- of this software and associated documentation files (the "Software"), to deal
+-- in the Software without restriction, including without limitation the rights
+-- to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+-- copies of the Software, and to permit persons to whom the Software is
+-- furnished to do so, subject to the following conditions:
+
+-- The above copyright notice and this permission notice shall be included in all
+-- copies or substantial portions of the Software.
+
+-- THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+-- IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+-- FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+-- AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+-- LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+-- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+-- SOFTWARE.
+
 local dta = {}
 
 ----------------------------------------------------------------------
@@ -7,9 +29,6 @@ local dta = {}
 dta.animation_groups      = {}
 dta.animation_groups_loop = {}
 dta.animation_groups_once = {}
-
--- remember to:
--- dta.animate() --> accepts tiles that are on frame "start", but are actually running an animation!
 
 dta.tilemap_relative_path = nil
 dta.tilemap_layer_ids     = {}
@@ -240,10 +259,11 @@ function dta.animate(tile_x, tile_y)
 		local tile = tilemap.get_tile(dta.tilemap_relative_path, dta.tilemap_layer_ids[i], tile_x, tile_y)
 		if dta.animation_groups_once[tile] ~= nil then
 			local handle = timer.delay(dta.animation_groups_once[tile]["step"], true, dta.timer_callback_once)
-			local frame = dta.ternary(dta.animation_groups_once[tile]["playback"] == "once_backward", dta.animation_groups_once[tile]["end_tile"], tile)
+			local frame = dta.ternary(dta.animation_groups_once[tile]["playback"] == "once_backward", dta.animation_groups_once[tile]["end_tile"], tile + 1)
 			local tile_pos = tile_x + (tile_y - 1) * dta.tilemap_width
 			local data = { handle = handle, frame = frame, elapsed = 0, extra = 0, tile_pos = tile_pos }
 			dta.animation_groups_once[tile]["instances"][handle] = data
+			tilemap.set_tile(dta.tilemap_relative_path, dta.tilemap_layer_ids[i], tile_x, tile_y, frame)
 		end
 	end
 end
