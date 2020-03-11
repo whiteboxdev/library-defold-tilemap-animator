@@ -1,19 +1,14 @@
 # Defold Tilemap Animator
 Defold Tilemap Animator (DTA) allows for easy runtime tile animations in a [Defold game engine](https://defold.com) project. DTA was developed as a utility library for a separate game. Since Defold does not offer animated tiles, I decided to share this project with the community.
 
-See the section titled [Example](#Example) to:
-- Run an HTML5 version of DTA in your browser.
-- Watch a brief video showcasing DTA and its setup procedure.
+See the section titled [Example](#Example) to run an HTML5 version of DTA in your browser.
 
-**Note**: This project will continue to see improvements and new features in the future. If you have feedback or suggestions, I would like to hear what you have to say. ^_^
+**Note**: This project will continue to see improvements and new features in the future. If you have feedback or suggestions, please let me know.
 
 ## Installation
 To install DTA into your project, add one of the following to your game.project dependencies:
 1. https://github.com/planksoftware/defold-tilemap-animator/archive/master.zip
 2. URL of a [specific release](https://github.com/planksoftware/defold-tilemap-animator/releases)
-
-Option 1 will keep you in line with the latest updates, however stability may be vary.  
-Option 2 will allow you to stick with a stable and battle-tested version.
 
 ## Configuration
 DTA works entirely out of a single Lua module, which may be referenced using the require path `dta.dta`.
@@ -56,9 +51,7 @@ The table maintains a key of type `<start_tile>`, which may be found in your til
     - `"once_corolla"`: Runs the animation in a 1-2-1-3-1-4-etc fashion once.
 3. `<step>`: Seconds until the next frame is loaded.
 
-Tiles assigned to a `loop_` callback will animate automatically in the background.  
-Tiles assigned to a `once_` callback will animate when executing the `dta.animate(tile_x, tile_y)` function.  
-See the [API](#The-DTA-API:-User-Functions) section for more details.
+Tiles assigned to a `loop_` callback will animate automatically in the background. Tiles assigned to a `once_` callback will animate when executing the `dta.animate(tile_x, tile_y)` function. See the [API](#the-dta-api-user-functions) section for more details.
 
 **Note**: You may add as many animation groups as you desire. Do not specify the same value for both `<start_tile>` and `<end_tile>`--the animation range should span at least two tiles. Animations must run from left to right in your tilesource file, and may wrap around to the next row.
 
@@ -107,5 +100,3 @@ A straightforward and lightweight [example project](https://github.com/planksoft
 
 [Click here to run an HTML5 version of DTA in your browser.](http://planksoftware.com/html/defold_tilemap_automator.html)  
 **Note**: The HTML5 version is not working outside of the Editor. This will be fixed soon.
-
-[Click here to watch a brief video showcasing DTA and its setup procedure.](#)
