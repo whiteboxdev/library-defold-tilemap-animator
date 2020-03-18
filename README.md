@@ -1,12 +1,12 @@
 # Defold Tilemap Animator
 Defold Tilemap Animator (DTA) allows for easy runtime tile animations in a [Defold game engine](https://defold.com) project. DTA was developed as a utility library for a separate game. Since Defold does not offer animated tiles, I decided to share this project with the community.
 
-Visit [my website](planksoftware.com/html/software.html) to see an animated gif of the example project.
+Visit [my website](https://planksoftware.github.io/html/software.html) to see an animated gif of the example project.
 
 ## Installation
 To install DTA into your project, add one of the following to your game.project dependencies:
-    - https://github.com/planksoftware/defold-tilemap-animator/archive/master.zip
-    - URL of a [specific release](https://github.com/planksoftware/defold-tilemap-animator/releases)
+  - https://github.com/planksoftware/defold-tilemap-animator/archive/master.zip
+  - URL of a [specific release](https://github.com/planksoftware/defold-tilemap-animator/releases)
 
 ## Configuration
 
@@ -96,4 +96,4 @@ Runs an animation on the specified tile *if* the tile is assigned to a `once_` p
 
 A straightforward and lightweight [example project](https://github.com/planksoftware/defold-tilemap-animator/tree/master/example) is available if you need additional help with configuration.
 
-Visit [my website](planksoftware.com/html/software.html) to see an animated gif of the example project.
+Visit [my website](https://planksoftware.github.io/html/software.html) to see an animated gif of the example project.
