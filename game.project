@@ -16,6 +16,7 @@ input_method = HiddenInputField
 
 [project]
 title = Defold Tilemap Animator - Example
+version = 1.0.1
 
 [graphics]
 default_texture_min_filter = nearest

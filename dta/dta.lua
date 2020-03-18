@@ -20,10 +20,14 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 
+----------------------------------------------------------------------
+-- DEPENDENCIES
+----------------------------------------------------------------------
+
 local dta = {}
 
 ----------------------------------------------------------------------
--- MODULE PROPERTIES
+-- PROPERTIES
 ----------------------------------------------------------------------
 
 dta.animation_groups      = {}
@@ -39,7 +43,7 @@ dta.tilemap_height        = 0
 dta.tilemap_tiles         = {}
 
 ----------------------------------------------------------------------
--- MODULE PLAYBACKS
+-- PLAYBACKS
 ----------------------------------------------------------------------
 
 function dta.loop_forward(data)
@@ -146,7 +150,7 @@ dta.playbacks_once = {
 }
 
 ----------------------------------------------------------------------
--- MODULE FUNCTIONS
+-- FUNCTIONS
 ----------------------------------------------------------------------
 
 function dta.ternary(condition, ret_true, ret_false)
