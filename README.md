@@ -27,7 +27,7 @@ Create a new Lua module. This is where you will create and assign animation grou
 
 ```
 return {
-    [<start_tile>] = { end_tile = <end_tile>, playback = hash(<playback>), step = <step> },
+    [<start_tile>] = { end_tile = <end_tile>, playback = <playback>, step = <step> },
     ...
 }
 ```
