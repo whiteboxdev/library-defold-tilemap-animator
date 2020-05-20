@@ -42,7 +42,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Defold Tilemap Editor - Example"
+  text: "Defold Tilemap Animator - Example"
   font: "font"
   id: "header"
   xanchor: XANCHOR_NONE
@@ -569,8 +569,8 @@ nodes {
 }
 nodes {
   position {
-    x: 478.0
-    y: 16.0
+    x: 476.0
+    y: 320.0
     z: 0.0
     w: 1.0
   }
@@ -600,7 +600,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Plank Software"
+  text: "Gym Rat Games"
   font: "font"
   id: "footer"
   xanchor: XANCHOR_RIGHT
