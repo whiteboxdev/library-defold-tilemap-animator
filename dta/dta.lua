@@ -201,7 +201,9 @@ function dta.timer_callback_loop(self, handle, time_elapsed)
 			if data["elapsed"] >= data["step"] then
 				data["elapsed"] = 0
 				dta.playbacks_loop[data["playback"]](data)
-				dta.set_tile_loop(start_tile, data["frame"])
+				if dta.tilemap_tiles[start_tile] ~= nil then
+					dta.set_tile_loop(start_tile, data["frame"])
+				end
 			end
 		end
 	end
