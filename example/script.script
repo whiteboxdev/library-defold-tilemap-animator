@@ -11,6 +11,7 @@ local h_str = {
 function init(self)
 	msg.post("#", h_str.acquire_input_focus)
 	dta.init(require "example.animation_groups", msg.url("#tilemap"), { h_str.terrain })
+	dta.toggle_message_passing(true, msg.url())
 end
 
 function on_input(self, action_id, action)
@@ -18,5 +19,13 @@ function on_input(self, action_id, action)
 		local x = math.ceil(action.x / tile_size)
 		local y = math.ceil(action.y / tile_size)
 		dta.animate(x, y)
+	end
+end
+
+function on_message(self, message_id, message, sender)
+	if message_id == dta.msg.animation_loop_complete then
+		print("DTA: Animation Loop Complete [" .. message.tile_id .. "]")
+	elseif message_id == dta.msg.animation_trigger_complete then
+		print("DTA: Animation Trigger Complete [" .. message.tile_id .. " " .. message.x .. " " .. message.y .. " " .. message.layer .. "]")
 	end
 end

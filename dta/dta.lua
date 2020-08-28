@@ -45,6 +45,13 @@ dta.tilemap_end_x = 0
 dta.tilemap_end_y = 0
 dta.tilemap_width = 0
 dta.tilemap_height = 0
+dta.msg_passing = false
+dta.msg_passing_url = nil
+
+dta.msg = {
+	animation_loop_complete = hash("animation_loop_complete"),
+	animation_trigger_complete = hash("animation_trigger_complete")
+}
 
 ----------------------------------------------------------------------
 -- FUNCTIONS
@@ -57,6 +64,9 @@ local function timer_callback(self, handle, time_elapsed)
 				value.frame = value.frame + 1
 				if value.frame > #value.sequence then
 					value.frame = 1
+					if dta.msg_passing then
+						msg.post(dta.msg_passing_url, dta.msg.animation_loop_complete, { tile_id = key })
+					end
 				end
 				for i = 1, #value.instances do
 					local instance = value.instances[i]
@@ -74,6 +84,9 @@ local function timer_callback(self, handle, time_elapsed)
 						timer.cancel(instance.handle)
 						instance.handle = nil
 						tilemap.set_tile(dta.tilemap_url, instance.layer, instance.x, instance.y, key)
+						if dta.msg_passing then
+							msg.post(dta.msg_passing_url, dta.msg.animation_trigger_complete, { tile_id = key, x = instance.x, y = instance.y, layer = instance.layer })
+						end
 					else
 						tilemap.set_tile(dta.tilemap_url, instance.layer, instance.x, instance.y, value.sequence[instance.frame])
 					end
@@ -137,7 +150,7 @@ function dta.animate(x, y, layer)
 				if instance.x == x and instance.y == y and instance.layer == layer and instance.handle == nil then
 					instance.frame = 1
 					instance.handle = timer.delay(1 / animation_group.frequency, true, timer_callback)
-					tilemap.set_tile(dta.timemap_url, layer, x, y, animation_group.sequence[1])
+					tilemap.set_tile(dta.tilemap_url, layer, x, y, animation_group.sequence[1])
 					return
 				end
 			end
@@ -159,6 +172,11 @@ function dta.animate(x, y, layer)
 			end
 		end
 	end
+end
+
+function dta.toggle_message_passing(flag, url)
+	dta.msg_passing = flag
+	dta.msg_passing_url = url
 end
 
 return dta
