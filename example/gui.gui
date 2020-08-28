@@ -108,7 +108,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "LOOP_FORWARD"
+  text: "Loop Forward"
   font: "font_regular"
   id: "loop_forward"
   xanchor: XANCHOR_NONE
@@ -170,7 +170,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "LOOP_BACKWARD"
+  text: "Loop Backward"
   font: "font_regular"
   id: "loop_backward"
   xanchor: XANCHOR_NONE
@@ -232,7 +232,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "LOOP_PINGPONG"
+  text: "Loop Pingpong"
   font: "font_regular"
   id: "loop_pingpong"
   xanchor: XANCHOR_NONE
@@ -294,7 +294,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "LOOP_COROLLA"
+  text: "Loop Corolla"
   font: "font_regular"
   id: "loop_corolla"
   xanchor: XANCHOR_NONE
@@ -356,9 +356,9 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "ONCE_FORWARD (Click)"
+  text: "Trigger Forward (Click)"
   font: "font_regular"
-  id: "once_forward"
+  id: "trigger_forward"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_E
@@ -418,9 +418,9 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "ONCE_BACKWARD (Click)"
+  text: "Trigger Gallop (Click)"
   font: "font_regular"
-  id: "once_backward"
+  id: "trigger_gallop"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_E
@@ -480,9 +480,9 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "ONCE_PINGPONG (Click)"
+  text: "Trigger Converge (Click)"
   font: "font_regular"
-  id: "once_pingpong"
+  id: "trigger_converge"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_E
@@ -542,9 +542,9 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "ONCE_COROLLA (Click)"
+  text: "Trigger Diverge (Click)"
   font: "font_regular"
-  id: "once_corolla"
+  id: "trigger_diverge"
   xanchor: XANCHOR_NONE
   yanchor: YANCHOR_NONE
   pivot: PIVOT_E
