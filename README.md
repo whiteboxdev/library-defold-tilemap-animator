@@ -31,7 +31,7 @@ local animation_groups = {
 3. `trigger`: Indicates that this is a *trigger* animation rather than a *loop* animation. Trigger animations can be activated by a script at any time and only roll once.
 4. `frequency`: Animation speed measured in `sequence` frames per second.
 
-Each animation you wish to create should be added as an entry in the `animation_groups` table. **Note** that tiles assigned to a trigger animation will regain their starting graphic (defined by `[<tile_id>]` in the above table) rather than lingering on their final `sequence` frame.
+Each animation you wish to create should be added as an entry in the `animation_groups` table. **Note** that tiles assigned to a trigger animation will regain their starting graphic (defined by `[<tile_id>]`) rather than lingering on their final `sequence` frame.
 
 You are ready to initialize DTA. Call `dta.init()` in your script:
 
@@ -46,7 +46,7 @@ function init(self, dt)
 end
 ```
 
-1. `animation_groups`: Table of tile animations already explained.
+1. `animation_groups`: Table of tile animations explained above.
 2. `tilemap_url`: URL to the animated tilemap.
 3. `layers`: Table of hashed tilemap layer ids. For example: `{ hash("background"), hash("midground)", hash("foreground") }`.
 
@@ -67,8 +67,8 @@ dta.msg = {
 }
 ```
 
-1. `animation_loop_complete`: Posted when a `trigger = false` animation group completes one full iteration of its `sequence`.
-2. `animation_trigger_compelte`: Posted when a `trigger = true` animation group completes its `sequence`.
+1. `animation_loop_complete`: Posted when a `trigger = false` animation group completes its `sequence`.
+2. `animation_trigger_complete`: Posted when a trigger tile completes its `sequence`.
 
 ## API: Functions
 
