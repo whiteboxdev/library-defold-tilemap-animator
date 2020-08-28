@@ -67,8 +67,8 @@ dta.msg = {
 }
 ```
 
-1. `animation_loop_complete`: Posted when a `trigger = false` animation group completes its `sequence`.
-2. `animation_trigger_complete`: Posted when a trigger tile completes its `sequence`.
+1. `animation_loop_complete`: Posted when a `trigger = false` animation group completes its `sequence`. The `message.tile_id` field contains the tile id which begins this animation sequence.
+2. `animation_trigger_complete`: Posted when a trigger tile completes its `sequence`. The `message.tile_id` field contains the tile id which begins this animation sequence. The `message.x`, `message.y`, and `message.layer` fields contain this tile's `x` position, `y` position, and hashed `layer` id on the tilemap.
 
 ## API: Functions
 
