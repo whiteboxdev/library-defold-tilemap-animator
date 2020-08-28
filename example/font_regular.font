@@ -1,4 +1,4 @@
-font: "/assets/bebas_neue_regular.ttf"
+font: "/assets/roboto_regular.ttf"
 material: "/builtins/fonts/font.material"
 size: 32
 antialias: 1

@@ -5,18 +5,15 @@ main_collection = /example/collection.collectionc
 shared_state = 1
 
 [display]
-width = 480
-height = 320
+width = 1280
+height = 720
 high_dpi = 1
-update_frequency = 60
-vsync = 0
 
 [android]
 input_method = HiddenInputField
 
 [project]
 title = Defold Tilemap Animator - Example
-version = 1.0.1
 
 [graphics]
 default_texture_min_filter = nearest

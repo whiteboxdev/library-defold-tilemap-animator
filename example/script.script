@@ -1,23 +1,12 @@
-----------------------------------------------------------------------
--- DEPENDENCIES
-----------------------------------------------------------------------
-
 local dta = require "dta.dta"
 
-----------------------------------------------------------------------
--- PROPERTIES
-----------------------------------------------------------------------
-
-local tile_size = 16
+local tile_size = 80
 
 local h_str = {
 	acquire_input_focus = hash("acquire_input_focus"),
-	click = hash("click")
+	click = hash("click"),
+	terrain = hash("terrain")
 }
-
-----------------------------------------------------------------------
--- ENGINE FUNCTIONS
-----------------------------------------------------------------------
 
 function init(self)
 	msg.post(".", h_str.acquire_input_focus)
