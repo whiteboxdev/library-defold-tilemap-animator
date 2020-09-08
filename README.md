@@ -4,7 +4,8 @@ Defold Tilemap Animator (DTA) 0.1.0 provides runtime tile animations in a Defold
 Visit [my website](https://gymratgames.github.io/html/extensions.html#dta) to see an animated gif of the example project.  
 An [example project](https://github.com/gymratgames/defold-tilemap-animator/tree/master/example) is available if you need additional help with configuration.
 
-Please click the "Star" button on GitHub if you find this asset to be useful!
+Please click the "Star" button on GitHub if you find this asset to be useful!  
+Consider supporting me on [Patreon](https://www.patreon.com/klaytonkowalski) if you like my work.
 
 ![alt text](https://github.com/gymratgames/defold-tilemap-animator/blob/master/assets/thumbnail.png?raw=true)
 
