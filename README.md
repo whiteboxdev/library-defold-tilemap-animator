@@ -53,7 +53,9 @@ end
 
 If you wish to receive animation progress updates in your `on_message()` function, call `dta.toggle_message_passing()`. This feature is set to `false` by default. If set to true, also pass in a URL to the script that will receive DTA messages.
 
-DTA will now begin animating your tilemap. Of course, only `trigger = false` tiles will show any activity. To animate a `trigger = true` tile, call `dta.animate()`.
+DTA will now begin animating your tilemap. Of course, only loop tiles will show any activity. To animate a trigger tile, call `dta.animate()`.
+
+If you would like to cancel all animations--both loops and triggers--call `dta.final()`. To start animating again, call `dta.init()`.
 
 ## API: Properties
 
@@ -97,6 +99,16 @@ local animation_groups = {
 
 ---
 
+### dta.is_initialized()
+
+Checks if DTA has been initialized.
+
+#### Returns
+
+Returns a `bool`.
+
+---
+
 ### dta.animate(x, y, layer)
 
 Activates a trigger animation. If the specified tile has not been assigned a trigger animation, then this function does nothing.
@@ -117,3 +129,9 @@ Toggles DTA's ability to post animation update messages to your script's `on_mes
 #### Parameters
 1. `flag`: Boolean indicating whether to post messages.
 2. `url`: URL to the script that should receive messages.
+
+---
+
+### dta.final()
+
+Cancels all loop and trigger animations and disables all animation functions. This may be useful when transitioning between tilemaps, etc.

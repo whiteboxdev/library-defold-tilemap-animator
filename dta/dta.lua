@@ -47,6 +47,11 @@ dta.tilemap_width = 0
 dta.tilemap_height = 0
 dta.msg_passing = false
 dta.msg_passing_url = nil
+dta.initialized = false
+
+----------------------------------------------------------------------
+-- CONSTANT VALUES
+----------------------------------------------------------------------
 
 dta.msg = {
 	animation_loop_complete = hash("animation_loop_complete"),
@@ -54,7 +59,15 @@ dta.msg = {
 }
 
 ----------------------------------------------------------------------
--- FUNCTIONS
+-- CONSTANT FUNCTIONS
+----------------------------------------------------------------------
+
+function dta.is_initialized()
+	return dta.initialized
+end
+
+----------------------------------------------------------------------
+-- VOLATILE FUNCTIONS
 ----------------------------------------------------------------------
 
 local function timer_callback(self, handle, time_elapsed)
@@ -126,6 +139,9 @@ local function configure_animation_groups()
 end
 
 function dta.init(animation_groups, tilemap_url, tilemap_layers)
+	if dta.initialized then
+		return
+	end
 	dta.animation_groups = animation_groups
 	dta.tilemap_url = tilemap_url
 	dta.tilemap_layers = tilemap_layers
@@ -138,9 +154,37 @@ function dta.init(animation_groups, tilemap_url, tilemap_layers)
 	dta.tilemap_height = h
 	configure_animation_groups()
 	configure_animation_groups_instances()
+	dta.initialized = true
+end
+
+function dta.final()
+	if not dta.initialized then
+		return
+	end
+	dta.initialized = false
+	for key, value in pairs(dta.animation_groups) do
+		if value.handle ~= nil then
+			timer.cancel(value.handle)
+			for i = 1, #value.instances do
+				local instance = value.instances[i]
+				tilemap.set_tile(dta.tilemap_url, instance.layer, instance.x, instance.y, key)
+			end
+		else
+			for i = 1, #value.instances do
+				local instance = value.instances[i]
+				if instance.handle ~= nil then
+					timer.cancel(instance.handle)
+					tilemap.set_tile(dta.tilemap_url, instance.layer, instance.x, instance.y, key)
+				end
+			end
+		end
+	end
 end
 
 function dta.animate(x, y, layer)
+	if not dta.initialized then
+		return
+	end
 	if layer ~= nil then
 		local tile_id = tilemap.get_tile(dta.tilemap_url, layer, x, y)
 		local animation_group = dta.animation_groups[tile_id]

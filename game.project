@@ -13,7 +13,7 @@ high_dpi = 1
 input_method = HiddenInputField
 
 [project]
-title = Defold Tilemap Animator - Example
+title = Defold Tilemap Animator
 
 [graphics]
 default_texture_min_filter = nearest
