@@ -1,5 +1,5 @@
 # Defold Tilemap Animator
-Defold Tilemap Animator (DTA) 0.1.0 provides runtime tile animations in a Defold game engine project. This includes both looping animations and trigger animations.
+Defold Tilemap Animator (DTA) 0.2.0 provides runtime tile animations in a Defold game engine project. This includes both looping animations and trigger animations.
 
 Visit [my website](https://gymratgames.github.io/html/extensions.html#dta) to see an animated gif of the example project.  
 An [example project](https://github.com/gymratgames/defold-tilemap-animator/tree/master/example) is available if you need additional help with configuration.
@@ -22,17 +22,18 @@ Instead of defining tile animations in Defold's `tilesource` file, DTA requires 
 
 ```
 local animation_groups = {
-    [<tile_id>] = { sequence = { <tile_id_1>, <tile_id_2>, ... }, trigger = <boolean>, frequency = <value> },
+    [<tile_id>] = { sequence = { <tile_id_1>, <tile_id_2>, ... }, trigger = <boolean>, frequency = <value>, reset = <boolean> },
     ...
 }
 ```
 
-1. `tile_id`: Tile id which begins your animation. This value can be found by hovering over the respective tile in your `tilesource` file.
+1. `tile_id`: Tile id which begins your animation. This value can be found by hovering over the respective tile in your tilesource file.
 2. `sequence`: Table defining this animation sequence. This allows you to create custom animation sequences, rather than being forced to conform to presets.
-3. `trigger`: Indicates that this is a *trigger* animation rather than a *loop* animation. Trigger animations can be activated by a script at any time and only roll once.
+3. `trigger`: Indicates that this is a *trigger* animation rather than a *loop* animation. Trigger animations can be activated by a script at any time and roll exactly once.
 4. `frequency`: Animation speed measured in `sequence` frames per second.
+5. `reset`: *Only needed if this is a trigger animation.* Indicates that this animation should regain its start tile graphic on completion. Otherwise, this animation will quit rolling once the final `sequence` frame has been reached.
 
-Each animation you wish to create should be added as an entry in the `animation_groups` table. **Note** that tiles assigned to a trigger animation will regain their starting graphic (defined by `[<tile_id>]`) rather than lingering on their final `sequence` frame.
+Each animation you wish to create should be added as an entry in the `animation_groups` table.
 
 You are ready to initialize DTA. Call `dta.init()` in your script:
 
@@ -85,6 +86,7 @@ Initializes DTA. Must be called in order to begin animating tiles.
     2. `sequence`: Table defining this animation sequence.
     3. `trigger`: Indicates that this is a trigger animation rather than a loop animation.
     4. `frequency`: Animation speed measured in `sequence` frames per second.
+    5. `reset`: Indicates that this animation should regain its start tile graphic on completion. *Only needed if this is a trigger animation.*
 2. `tilemap_url`: URL to the animated tilemap.
 3. `layers`: Table of hashed tilemap layer ids.
 
@@ -92,20 +94,10 @@ The format for the `animation_groups` table is as follows:
 
 ```
 local animation_groups = {
-    [<tile_id>] = { sequence = { <tile_id_1>, <tile_id_2>, ... }, trigger = <boolean>, frequency = <value> },
+    [<tile_id>] = { sequence = { <tile_id_1>, <tile_id_2>, ... }, trigger = <boolean>, frequency = <value>, reset = <boolean> },
     ...
 }
 ```
-
----
-
-### dta.is_initialized()
-
-Checks if DTA has been initialized.
-
-#### Returns
-
-Returns a `bool`.
 
 ---
 
