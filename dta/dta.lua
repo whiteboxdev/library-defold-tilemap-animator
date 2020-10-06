@@ -86,7 +86,12 @@ local function timer_callback(self, handle, time_elapsed)
 				if instance.handle == handle then
 					instance.frame = instance.frame + 1
 					if instance.frame > #value.sequence then
-						instance.frame = #value.sequence
+						if value.reset then
+							instance.frame = 1
+							tilemap.set_tile(dta.tilemap_url, instance.layer, instance.x, instance.y, key)
+						else
+							instance.frame = #value.sequence
+						end
 						timer.cancel(instance.handle)
 						instance.handle = nil
 						if dta.msg_passing then
