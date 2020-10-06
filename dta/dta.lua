@@ -38,6 +38,7 @@ local dta = {}
 
 dta.animation_groups = {}
 dta.tilemap_url = nil
+dta.tilemap_grid = {}
 dta.tilemap_layers = {}
 dta.tilemap_start_x = 0
 dta.tilemap_start_y = 0
@@ -57,14 +58,6 @@ dta.msg = {
 	animation_loop_complete = hash("animation_loop_complete"),
 	animation_trigger_complete = hash("animation_trigger_complete")
 }
-
-----------------------------------------------------------------------
--- CONSTANT FUNCTIONS
-----------------------------------------------------------------------
-
-function dta.is_initialized()
-	return dta.initialized
-end
 
 ----------------------------------------------------------------------
 -- VOLATILE FUNCTIONS
@@ -93,10 +86,9 @@ local function timer_callback(self, handle, time_elapsed)
 				if instance.handle == handle then
 					instance.frame = instance.frame + 1
 					if instance.frame > #value.sequence then
-						instance.frame = 1
+						instance.frame = #value.sequence
 						timer.cancel(instance.handle)
 						instance.handle = nil
-						tilemap.set_tile(dta.tilemap_url, instance.layer, instance.x, instance.y, key)
 						if dta.msg_passing then
 							msg.post(dta.msg_passing_url, dta.msg.animation_trigger_complete, { tile_id = key, x = instance.x, y = instance.y, layer = instance.layer })
 						end
@@ -111,9 +103,12 @@ end
 
 local function configure_animation_groups_instances()
 	for i = 1, #dta.tilemap_layers do
+		dta.tilemap_grid[dta.tilemap_layers[i]] = {}
 		for j = dta.tilemap_start_y, dta.tilemap_end_y do
+			table.insert(dta.tilemap_grid[dta.tilemap_layers[i]], {})
 			for k = dta.tilemap_start_x, dta.tilemap_end_x do
 				local tile_id = tilemap.get_tile(dta.tilemap_url, dta.tilemap_layers[i], k, j)
+				table.insert(dta.tilemap_grid[dta.tilemap_layers[i]][j], tile_id)
 				if dta.animation_groups[tile_id] ~= nil then
 					if dta.animation_groups[tile_id].trigger then
 						table.insert(dta.animation_groups[tile_id].instances, { x = k, y = j, layer = dta.tilemap_layers[i], frame = 1, handle = nil })
@@ -139,9 +134,7 @@ local function configure_animation_groups()
 end
 
 function dta.init(animation_groups, tilemap_url, tilemap_layers)
-	if dta.initialized then
-		return
-	end
+	if dta.initialized then return end
 	dta.animation_groups = animation_groups
 	dta.tilemap_url = tilemap_url
 	dta.tilemap_layers = tilemap_layers
@@ -158,10 +151,9 @@ function dta.init(animation_groups, tilemap_url, tilemap_layers)
 end
 
 function dta.final()
-	if not dta.initialized then
-		return
-	end
+	if not dta.initialized then return end
 	dta.initialized = false
+	dta.tilemap_grid = {}
 	for key, value in pairs(dta.animation_groups) do
 		if value.handle ~= nil then
 			timer.cancel(value.handle)
@@ -182,11 +174,9 @@ function dta.final()
 end
 
 function dta.animate(x, y, layer)
-	if not dta.initialized then
-		return
-	end
+	if not dta.initialized then return end
 	if layer ~= nil then
-		local tile_id = tilemap.get_tile(dta.tilemap_url, layer, x, y)
+		local tile_id = dta.tilemap_grid[layer][y][x]
 		local animation_group = dta.animation_groups[tile_id]
 		if animation_group ~= nil and animation_group.trigger then
 			for i = 1, #animation_group.instances do
@@ -201,7 +191,7 @@ function dta.animate(x, y, layer)
 		end
 	else
 		for i = 1, #dta.tilemap_layers do
-			local tile_id = tilemap.get_tile(dta.tilemap_url, dta.tilemap_layers[i], x, y)
+			local tile_id = dta.tilemap_grid[dta.tilemap_layers[i]][y][x]
 			local animation_group = dta.animation_groups[tile_id]
 			if animation_group ~= nil and animation_group.trigger then
 				for j = 1, #animation_group.instances do
