@@ -5,6 +5,7 @@ local tile_size = 80
 local h_str = {
 	acquire_input_focus = hash("acquire_input_focus"),
 	click = hash("click"),
+	click_debug = hash("click_debug"),
 	terrain = hash("terrain")
 }
 
@@ -19,6 +20,9 @@ function on_input(self, action_id, action)
 		local x = math.ceil(action.x / tile_size)
 		local y = math.ceil(action.y / tile_size)
 		dta.animate(x, y)
+	elseif action_id == h_str.click_debug and action.pressed then
+		-- ignore
+		-- this space is used for development testing
 	end
 end
 

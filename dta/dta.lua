@@ -213,6 +213,33 @@ function dta.animate(x, y, layer)
 	end
 end
 
+function dta.set_tile(layer, x, y, tile, h_flipped, v_flipped)
+	if not dta.initialized then return end
+	local group = dta.animation_groups[dta.tilemap_grid[layer][y][x]]
+	if group ~= nil then
+		for i = 1, #group.instances do
+			if group.instances[i].x == x and group.instances[i].y == y and group.instances[i].layer then
+				if group.trigger then
+					if group.instances[i].handle ~= nil then
+						timer.cancel(group.instances[i].handle)
+					end
+				end
+				table.remove(group.instances, i)
+				break
+			end
+		end
+	end
+	tilemap.set_tile(dta.tilemap_url, layer, x, y, tile, h_flipped, v_flipped)
+	dta.tilemap_grid[layer][y][x] = tile
+	if dta.animation_groups[tile] ~= nil then
+		if dta.animation_groups[tile].trigger then
+			table.insert(dta.animation_groups[tile].instances, { x = x, y = y, layer = layer, frame = 1, handle = nil })
+		else
+			table.insert(dta.animation_groups[tile].instances, { x = x, y = y, layer = layer })
+		end
+	end
+end
+
 function dta.toggle_message_passing(flag, url)
 	dta.msg_passing = flag
 	dta.msg_passing_url = url
