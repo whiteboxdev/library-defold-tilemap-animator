@@ -1,18 +1,17 @@
 # Defold Tilemap Animator
 Defold Tilemap Animator (DTA) 0.2.0 provides runtime tile animations in a Defold game engine project. This includes both looping animations and trigger animations.
 
-Visit [my website](https://gymratgames.github.io/html/extensions.html#dta) to see an animated gif of the example project.  
-An [example project](https://github.com/gymratgames/defold-tilemap-animator/tree/master/example) is available if you need additional help with configuration.
+An [example project](https://github.com/kowalskigamedevelopment/defold-tilemap-animator/tree/master/example) is available if you need additional help with configuration.  
+Visit [my website](https://kowalskigamedevelopment.github.io/html/extensions.html#dta) to see an animated gif of the example project.
 
-Please click the "Star" button on GitHub if you find this asset to be useful!  
-If you wish to support me and the work I do, please consider becoming one of my [patrons](https://www.patreon.com/klaytonkowalski).
+Please click the "Star" button on GitHub if you find this asset to be useful!
 
-![alt text](https://github.com/gymratgames/defold-tilemap-animator/blob/master/assets/thumbnail.png?raw=true)
+![alt text](https://github.com/kowalskigamedevelopment/defold-tilemap-animator/blob/master/assets/thumbnail.png?raw=true)
 
 ## Installation
 To install DTA into your project, add one of the following links to your `game.project` dependencies:
-  - https://github.com/gymratgames/defold-tilemap-animator/archive/master.zip
-  - URL of a [specific release](https://github.com/gymratgames/defold-tilemap-animator/releases)
+  - https://github.com/kowalskigamedevelopment/defold-tilemap-animator/archive/master.zip
+  - URL of a [specific release](https://github.com/kowalskigamedevelopment/defold-tilemap-animator/releases)
 
 ## Configuration
 Import the DTA Lua module into any script:

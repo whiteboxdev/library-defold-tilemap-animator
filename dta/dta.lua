@@ -24,7 +24,7 @@
 -- OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 -- SOFTWARE.
 
--- https://github.com/gymratgames/defold-tilemap-animator
+-- https://github.com/kowalskigamedevelopment/defold-tilemap-animator
 
 ----------------------------------------------------------------------
 -- DEPENDENCIES
