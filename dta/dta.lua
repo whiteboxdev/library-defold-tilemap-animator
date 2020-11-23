@@ -27,14 +27,10 @@
 -- https://github.com/kowalskigamedevelopment/defold-tilemap-animator
 
 ----------------------------------------------------------------------
--- DEPENDENCIES
+-- PROPERTIES
 ----------------------------------------------------------------------
 
 local dta = {}
-
-----------------------------------------------------------------------
--- PROPERTIES
-----------------------------------------------------------------------
 
 dta.animation_groups = {}
 dta.tilemap_url = nil
@@ -50,17 +46,13 @@ dta.msg_passing = false
 dta.msg_passing_url = nil
 dta.initialized = false
 
-----------------------------------------------------------------------
--- CONSTANT VALUES
-----------------------------------------------------------------------
-
 dta.msg = {
 	animation_loop_complete = hash("animation_loop_complete"),
 	animation_trigger_complete = hash("animation_trigger_complete")
 }
 
 ----------------------------------------------------------------------
--- VOLATILE FUNCTIONS
+-- FUNCTIONS
 ----------------------------------------------------------------------
 
 local function timer_callback(self, handle, time_elapsed)

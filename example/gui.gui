@@ -573,8 +573,8 @@ nodes {
 }
 nodes {
   position {
-    x: 1207.0
-    y: 19.0
+    x: 1270.0
+    y: 5.0
     z: 0.0
     w: 1.0
   }
@@ -604,12 +604,12 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Gym Rat Games"
+  text: "Kowalski Game Development"
   font: "font"
   id: "footer"
   xanchor: XANCHOR_RIGHT
   yanchor: YANCHOR_BOTTOM
-  pivot: PIVOT_CENTER
+  pivot: PIVOT_SE
   outline {
     x: 0.0
     y: 0.0
