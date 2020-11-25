@@ -1,5 +1,5 @@
 # Defold Tilemap Animator
-Defold Tilemap Animator (DTA) 0.2.0 provides runtime tile animations in a Defold game engine project. This includes both looping animations and trigger animations.
+Defold Tilemap Animator (DTA) 0.3.0 provides runtime tile animations in a Defold game engine project. This includes both looping animations and trigger animations.
 
 An [example project](https://github.com/kowalskigamedevelopment/defold-tilemap-animator/tree/master/example) is available if you need additional help with configuration.  
 Visit [my website](https://kowalskigamedevelopment.github.io/html/extensions.html#dta) to see an animated gif of the example project.
@@ -110,6 +110,18 @@ Activates a trigger animation. If the specified tile has not been assigned a tri
 3. `layer`: Hashed tilemap layer id of tile.
 
 If you do not specify a `layer`, then DTA will activate all trigger animations at `[x, y]` regardless of layer.
+
+---
+
+### dta.set_tile(layer, x, y, tile, h_flipped, v_flipped)
+
+Replaces a tile in the loaded tilemap with a new tile.
+
+**Note:** This is a replacement for Defold's built-in [tilemap.set_tile()](https://defold.com/ref/tilemap/#tilemap.set_tile:url-layer-x-y-tile-[h-flipped]-[v-flipped]). This function accounts for animations.
+
+#### Parameters
+
+See [tilemap.set_tile()](https://defold.com/ref/tilemap/#tilemap.set_tile:url-layer-x-y-tile-[h-flipped]-[v-flipped]).
 
 ---
 
