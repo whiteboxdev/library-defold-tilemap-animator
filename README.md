@@ -55,7 +55,7 @@ If you wish to receive animation progress updates in your `on_message()` functio
 
 DTA will now begin animating your tilemap. Of course, only loop tiles will show any activity. To animate a trigger tile, call `dta.animate()`.
 
-If you would like to cancel all animations--both loops and triggers--call `dta.final()`. To start animating again, call `dta.init()`.
+If you would like to cancel all animations--both loops and triggers--call `dta.cleanup()`. To start animating again, call `dta.init()`.
 
 ## API: Properties
 
@@ -123,6 +123,6 @@ Toggles DTA's ability to post animation update messages to your script's `on_mes
 
 ---
 
-### dta.final()
+### dta.cleanup()
 
 Cancels all loop and trigger animations and disables all animation functions. This may be useful when transitioning between tilemaps, etc.

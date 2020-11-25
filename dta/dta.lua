@@ -147,7 +147,7 @@ function dta.init(animation_groups, tilemap_url, tilemap_layers)
 	dta.initialized = true
 end
 
-function dta.final()
+function dta.cleanup()
 	if not dta.initialized then return end
 	dta.initialized = false
 	dta.tilemap_grid = {}
