@@ -574,7 +574,7 @@ nodes {
 nodes {
   position {
     x: 1270.0
-    y: 5.0
+    y: 0.0
     z: 0.0
     w: 1.0
   }
@@ -585,8 +585,8 @@ nodes {
     w: 1.0
   }
   scale {
-    x: 0.8
-    y: 0.8
+    x: 1.0
+    y: 1.0
     z: 1.0
     w: 1.0
   }
@@ -604,7 +604,7 @@ nodes {
   }
   type: TYPE_TEXT
   blend_mode: BLEND_MODE_ALPHA
-  text: "Kowalski Game Development"
+  text: "Klayton Kowalski"
   font: "font"
   id: "footer"
   xanchor: XANCHOR_RIGHT
