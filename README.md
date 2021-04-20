@@ -1,23 +1,23 @@
 # Defold Tilemap Animator
-Defold Tilemap Animator (DTA) 0.3.0 provides runtime tile animations in a Defold game engine project. This includes both looping animations and trigger animations.
+Defold Tilemap Animator (dtile) 0.3.1 provides runtime tile animations in a Defold game engine project.
 
 An [example project](https://github.com/klaytonkowalski/defold-tilemap-animator/tree/master/example) is available if you need additional help with configuration.  
-Visit [my website](https://klaytonkowalski.github.io/html/extensions.html#dta) to see an animated gif of the example project.
+Visit my [Giphy](https://media.giphy.com/media/y0trFB9u4tttk3Wu9q/giphy.gif) to see an animated gif of the example project.
 
 Please click the "Star" button on GitHub if you find this asset to be useful!
 
 ![alt text](https://github.com/klaytonkowalski/defold-tilemap-animator/blob/master/assets/thumbnail.png?raw=true)
 
 ## Installation
-To install DTA into your project, add one of the following links to your `game.project` dependencies:
+To install dtile into your project, add one of the following links to your `game.project` dependencies:
   - https://github.com/klaytonkowalski/defold-tilemap-animator/archive/master.zip
   - URL of a [specific release](https://github.com/klaytonkowalski/defold-tilemap-animator/releases)
 
 ## Configuration
-Import the DTA Lua module into any script:
-`local dta = require "dta.dta"`
+Import the dtile Lua module into any script:
+`local dtile = require "dtile.dtile"`
 
-Instead of defining tile animations in Defold's `tilesource` file, DTA requires you to define your own tile animations in table format:
+Instead of defining tile animations in Defold's `tilesource` file, dtile requires you to define your own tile animations in table format:
 
 ```
 local animation_groups = {
@@ -34,16 +34,16 @@ local animation_groups = {
 
 Each animation you wish to create should be added as an entry in the `animation_groups` table.
 
-You are ready to initialize DTA. Call `dta.init()` in your script:
+You are ready to initialize dtile. Call `dtile.init()` in your script:
 
 ```
-local dta = require "dta.dta"
+local dtile = require "dtile.dtile"
 
 local animation_groups = { ... }
 
 function init(self, dt)
-    dta.init(animation_groups, <tilemap_url>, <layers>)
-    dta.toggle_message_passing(true, msg.url())
+    dtile.init(animation_groups, <tilemap_url>, <layers>)
+    dtile.toggle_message_passing(true, msg.url())
 end
 ```
 
@@ -51,20 +51,20 @@ end
 2. `tilemap_url`: URL to the animated tilemap.
 3. `layers`: Table of hashed tilemap layer ids. For example: `{ hash("background"), hash("midground)", hash("foreground") }`.
 
-If you wish to receive animation progress updates in your `on_message()` function, call `dta.toggle_message_passing()`. This feature is set to `false` by default. If set to true, also pass in a URL to the script that will receive DTA messages.
+If you wish to receive animation progress updates in your `on_message()` function, call `dtile.toggle_message_passing()`. This feature is set to `false` by default. If set to true, also pass in a URL to the script that will receive dtile messages.
 
-DTA will now begin animating your tilemap. Of course, only loop tiles will show any activity. To animate a trigger tile, call `dta.animate()`.
+dtile will now begin animating your tilemap. Of course, only loop tiles will show any activity. To animate a trigger tile, call `dtile.animate()`.
 
-If you would like to cancel all animations--both loops and triggers--call `dta.cleanup()`. To start animating again, call `dta.init()`.
+If you would like to cancel all animations--both loops and triggers--call `dtile.cleanup()`. To start animating again, call `dtile.init()`.
 
 ## API: Properties
 
-### dta.msg
+### dtile.msg
 
 Table for referencing messages posted to your script's `on_message()` function:
 
 ```
-dta.msg = {
+dtile.msg = {
     animation_loop_complete = hash("animation_loop_complete"),
     animation_trigger_complete = hash("animation_trigger_complete")
 }
@@ -75,9 +75,9 @@ dta.msg = {
 
 ## API: Functions
 
-### dta.init(animation_groups, tilemap_url, tilemap_layers)
+### dtile.init(animation_groups, tilemap_url, tilemap_layers)
 
-Initializes DTA. Must be called in order to begin animating tiles.
+Initializes dtile. Must be called in order to begin animating tiles.
 
 #### Parameters
 1. `animation_groups`: Table defining your custom animation groups.
@@ -100,7 +100,7 @@ local animation_groups = {
 
 ---
 
-### dta.animate(x, y, layer)
+### dtile.animate(x, y, layer)
 
 Activates a trigger animation. If the specified tile has not been assigned a trigger animation, then this function does nothing.
 
@@ -109,11 +109,11 @@ Activates a trigger animation. If the specified tile has not been assigned a tri
 2. `y`: Y-coordinate of tile.
 3. `layer`: Hashed tilemap layer id of tile.
 
-If you do not specify a `layer`, then DTA will activate all trigger animations at `[x, y]` regardless of layer.
+If you do not specify a `layer`, then dtile will activate all trigger animations at `[x, y]` regardless of layer.
 
 ---
 
-### dta.set_tile(layer, x, y, tile, h_flipped, v_flipped)
+### dtile.set_tile(layer, x, y, tile, h_flipped, v_flipped)
 
 Replaces a tile in the loaded tilemap with a new tile.
 
@@ -125,9 +125,9 @@ See [tilemap.set_tile()](https://defold.com/ref/tilemap/#tilemap.set_tile:url-la
 
 ---
 
-### dta.toggle_message_passing(flag, url)
+### dtile.toggle_message_passing(flag, url)
 
-Toggles DTA's ability to post animation update messages to your script's `on_message()` function.
+Toggles dtile's ability to post animation update messages to your script's `on_message()` function.
 
 #### Parameters
 1. `flag`: Boolean indicating whether to post messages.
@@ -135,6 +135,6 @@ Toggles DTA's ability to post animation update messages to your script's `on_mes
 
 ---
 
-### dta.cleanup()
+### dtile.cleanup()
 
 Cancels all loop and trigger animations and disables all animation functions. This may be useful when transitioning between tilemaps, etc.

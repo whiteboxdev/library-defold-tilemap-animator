@@ -7,18 +7,20 @@ shared_state = 1
 [display]
 width = 1280
 height = 720
-high_dpi = 1
 
 [android]
 input_method = HiddenInputField
 
 [project]
 title = Defold Tilemap Animator
+version = 0.3.1
+publisher = Klayton Kowalski
+developer = Klayton Kowalski
 
 [graphics]
 default_texture_min_filter = nearest
 default_texture_mag_filter = nearest
 
 [library]
-include_dirs = dta
+include_dirs = dtile
 
