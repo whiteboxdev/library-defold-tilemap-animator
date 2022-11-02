@@ -205,6 +205,20 @@ function dtile.animate(x, y, layer)
 	end
 end
 
+function dtile.get_tile(x, y, layer)
+	if not dtile.initialized then return end
+	if layer then
+		return dtile.tilemap_grid[layer][y][x]
+	else
+		local result = {}
+		for i = 1, #dtile.tilemap_layers do
+			local tile_id = dtile.tilemap_grid[dtile.tilemap_layers[i]][y][x]
+			result[dtile.tilemap_layers[i]] = tile_id
+		end
+		return result
+	end
+end
+
 function dtile.set_tile(layer, x, y, tile, h_flipped, v_flipped)
 	if not dtile.initialized then return end
 	local group = dtile.animation_groups[dtile.tilemap_grid[layer][y][x]]

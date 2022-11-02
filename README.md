@@ -113,6 +113,42 @@ If you do not specify a `layer`, then dtile will activate all trigger animations
 
 ---
 
+### dtile.get_tile(x, y, layer)
+
+Gets a tile in the loaded tilemap.
+
+**Note:** This is a replacement for Defold's built-in [tilemap.get_tile()](https://defold.com/ref/tilemap/#tilemap.get_tile:url-layer-x-y). This function accounts for animations.
+
+#### Parameters
+1. `x`: X-coordinate of tile.
+2. `y`: Y-coordinate of tile.
+3. `layer`: Hashed tilemap layer id of tile.
+
+If you do not specify a `layer`, then dtile will return a table containing the tile at `[x, y]` in each layer:
+
+```
+{
+    [<layer>] = <tile_id>,
+    ...
+}
+```
+
+#### Returns
+
+Returns a tile id or a table of tile ids.
+
+Even if the tile is playing an animation, the first frame is returned. For example, a flower tile is animated across three frames and therefore three tile ids:
+
+```
+flower_sequence = [ tile_id = 1, tile_id = 2, tile_id = 3 ]
+current_tile_id = 2 // The flower animation is on its second frame.
+dtile.get_tile(<flower>) // Returns '1'.
+```
+
+To get the actual current tile id instead of the first frame, use [tilemap.get_tile()](https://defold.com/ref/tilemap/#tilemap.get_tile:url-layer-x-y).
+
+---
+
 ### dtile.set_tile(layer, x, y, tile, h_flipped, v_flipped)
 
 Replaces a tile in the loaded tilemap with a new tile.
