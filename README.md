@@ -55,7 +55,7 @@ If you wish to receive animation progress updates in your `on_message()` functio
 
 dtile will now begin animating your tilemap. Of course, only loop tiles will show any activity. To animate a trigger tile, call `dtile.animate()`.
 
-If you would like to cancel all animations--both loops and triggers--call `dtile.cleanup()`. To start animating again, call `dtile.init()`.
+If you would like to cancel all animations--both loops and triggers--call `dtile.final()`. To start animating again, call `dtile.init()`.
 
 ## API: Properties
 
@@ -64,7 +64,8 @@ If you would like to cancel all animations--both loops and triggers--call `dtile
 Table for referencing messages posted to your script's `on_message()` function:
 
 ```
-dtile.msg = {
+dtile.msg =
+{
     animation_loop_complete = hash("animation_loop_complete"),
     animation_trigger_complete = hash("animation_trigger_complete")
 }
@@ -92,7 +93,8 @@ Initializes dtile. Must be called in order to begin animating tiles.
 The format for the `animation_groups` table is as follows:
 
 ```
-local animation_groups = {
+local animation_groups =
+{
     [<tile_id>] = { sequence = { <tile_id_1>, <tile_id_2>, ... }, trigger = <boolean>, frequency = <value>, reset = <boolean> },
     ...
 }
@@ -100,9 +102,15 @@ local animation_groups = {
 
 ---
 
+### dtile.final()
+
+Cancels all loop and trigger animations and disables all animation functions. This is useful when transitioning between tilemaps, among other cases.
+
+---
+
 ### dtile.animate(x, y, layer)
 
-Activates a trigger animation. If the specified tile has not been assigned a trigger animation, then this function does nothing.
+Activates a trigger animation. Does nothing if a trigger animation is not assigned to the specified tile.
 
 #### Parameters
 1. `x`: X-coordinate of tile.
@@ -110,6 +118,19 @@ Activates a trigger animation. If the specified tile has not been assigned a tri
 3. `layer`: Hashed tilemap layer id of tile.
 
 If you do not specify a `layer`, then dtile will activate all trigger animations at `[x, y]` regardless of layer.
+
+---
+
+### dtile.reset(x, y, layer)
+
+Resets a trigger animation to its first frame. Does nothing if a trigger animation is not assigned to the specified tile.
+
+#### Parameters
+1. `x`: X-coordinate of tile.
+2. `y`: Y-coordinate of tile.
+3. `layer`: Hashed tilemap layer id of tile.
+
+If you do not specify a `layer`, then dtile will reset all trigger animations at `[x, y]` regardless of layer.
 
 ---
 
@@ -161,6 +182,20 @@ See [tilemap.set_tile()](https://defold.com/ref/tilemap/#tilemap.set_tile:url-la
 
 ---
 
+### dtile.has_trigger_animation(tile_id)
+
+Checks if a trigger animation is assigned to the specified `tile_id`.
+
+#### Parameters
+
+1. `tile_id`: Tile id number.
+
+#### Returns
+
+Returns a `bool`.
+
+---
+
 ### dtile.toggle_message_passing(flag, url)
 
 Toggles dtile's ability to post animation update messages to your script's `on_message()` function.
@@ -168,9 +203,3 @@ Toggles dtile's ability to post animation update messages to your script's `on_m
 #### Parameters
 1. `flag`: Boolean indicating whether to post messages.
 2. `url`: URL to the script that should receive messages.
-
----
-
-### dtile.cleanup()
-
-Cancels all loop and trigger animations and disables all animation functions. This may be useful when transitioning between tilemaps, etc.
