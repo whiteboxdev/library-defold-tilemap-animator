@@ -4,7 +4,7 @@ Defold Tilemap Animator provides runtime tile animations in a Defold game engine
 An [example project](https://github.com/klaytonkowalski/library-defold-tilemap-animator/tree/master/example) is available if you need additional help with configuration.  
 Visit my [Giphy](https://media.giphy.com/media/y0trFB9u4tttk3Wu9q/giphy.gif) to see an animated gif of the example project.
 
-Please click the "Star" button on GitHub if you find this asset to be useful!
+Please click the ☆ button on GitHub if this repository is useful or interesting. Thank you!
 
 ![alt text](https://github.com/klaytonkowalski/library-defold-tilemap-animator/blob/master/assets/thumbnail.png?raw=true)
 
