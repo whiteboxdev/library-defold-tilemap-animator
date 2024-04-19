@@ -1,7 +1,6 @@
 # Defold Tilemap Animator
-Defold Tilemap Animator provides runtime tile animations in a Defold game engine project.
 
-An [example project](https://github.com/klaytonkowalski/library-defold-tilemap-animator/tree/master/example) is available if you need additional help with configuration.
+Defold Tilemap Animator provides runtime tile animations in a Defold game engine project.
 
 Please click the ☆ button on GitHub if this repository is useful or interesting. Thank you!
 
@@ -10,11 +9,12 @@ Please click the ☆ button on GitHub if this repository is useful or interestin
 ![alt text](https://github.com/klaytonkowalski/library-defold-tilemap-animator/blob/master/assets/example.gif?raw=true)
 
 ## Installation
-To install dtile into your project, add one of the following links to your `game.project` dependencies:
-  - https://github.com/klaytonkowalski/library-defold-tilemap-animator/archive/master.zip
-  - URL of a [specific release](https://github.com/klaytonkowalski/library-defold-tilemap-animator/releases)
+
+Add the latest version to your project's dependencies:  
+https://github.com/klaytonkowalski/library-defold-tilemap-animator/archive/master.zip
 
 ## Configuration
+
 Import the dtile Lua module into any script:
 `local dtile = require "dtile.dtile"`
 
